@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 9(2)</title>
+    <link rel="stylesheet" href="lab.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="header">
+    <div class="header-options">
+        <ul class="header-options__list">
+            <li class="header-options__list-element" id="find-person-opt" style="display: none" onclick="findPerson()">Find friends</li>
+        </ul>
+    </div>
+    <div id="header-welcome" class="header-welcome">
+        Welcome <span id="welcome-username"></span>
+        <button onclick="logout()" class="logout-button">Logout</button>
+    </div>
+</div>
+<div class="auth" id="auth">
+    <div class="auth-head" onclick="changeTab(event)">
+        <button id="register-button" class="auth-head__button"><i class="fa-solid fa-user-plus"></i> Register</button>
+        <button id="login-button" class="auth-head__button auth-head__button_active"><i class="fa-solid fa-right-to-bracket"></i> Login</button>
+    </div>
+    <div class="auth-body">
+        <form autocomplete="off" oninput="setInputTouched(event)" onsubmit="register(event)" id="register-form" class="auth-register">
+            <input type="hidden" autocomplete="off" name="">
+            <div class="register-form-field">
+                <p>Username</p>
+                <input autocomplete="off" data-touched="false" class="register-form-field__input" type="text" required name="username" id="username">
+            </div>
+            <div class="register-form-field-validation" id="username-validation"></div>
+            <div class="register-form-field">
+                <p>Email</p>
+                <input autocomplete="off" data-touched="false" class="register-form-field__input" type="text" pattern="[^\s@]+@[^\s@]+\.[^\s@]+" required name="email" id="email">
+            </div>
+            <div class="register-form-field-validation" id="email-validation"></div>
+            <div class="register-form-field">
+                <i onclick="togglePassword('password')" id="show-password" class="fa-solid fa-eye fa"></i>
+                <p>Password</p>
+                <input autocomplete="new-password" data-touched="false" class="register-form-field__input" value="" type="password" required name="password" id="password">
+            </div>
+            <div class="register-form-field-validation" id="password-validation"></div>
+            <div class="register-form-field">
+                <i onclick="togglePassword('confirmPassword')" id="show-confirmPassword" class="fa-solid fa-eye fa"></i>
+                <p>Confirm password</p>
+                <input autocomplete="off" data-touched="false" class="register-form-field__input" type="password" required name="confirmPassword" id="confirmPassword">
+            </div>
+            <div class="register-form-field-validation" id="confirmPassword-validation"></div>
+            <button id="register-submit-button" class="register-form-submit-button">Register</button>
+        </form>
+
+        <form onclick="setInputTouched(event)" onsubmit="login(event)" id="login-form" class="auth-register">
+            <div class="register-form-field">
+                <p>Username</p>
+                <input autocomplete="off" data-touched="false" class="register-form-field__input" type="text" required name="username" id="loginUsername">
+            </div>
+
+            <div class="register-form-field">
+                <i onclick="togglePassword('login-password')" id="show-login-password" class="fa-solid fa-eye fa"></i>
+                <p>Password</p>
+                <input autocomplete="off" data-touched="false" class="register-form-field__input" type="password" required name="password" id="login-password">
+            </div>
+            <button id="login-submit-button" class="register-form-submit-button">Login</button>
+        </form>
+    </div>
+</div>
+
+<div id="loader" class="loader">
+    <i class="fa fa-spinner fa-spin fa-3x"></i> <span style="font-size: 24px">One moment...</span>
+</div>
+
+<div id="welcome-to-page" class="welcome-to-page">
+    <h1>Find some users</h1>
+</div>
+
+<div id="find-person" class="find-person">
+    <form onchange="searchPerson(event)" oninput="searchPerson(event)" class="find-person-options" id="search-form">
+        <div class="find-person-options-search">
+            <label for="search">Search:</label>
+            <select name="searchOption" id="search">
+                <option value="name">Name</option>
+                <option value="age">Age</option>
+                <option value="email">Email</option>
+                <option value="city">City</option>
+            </select>
+            <label for="search-query">with:</label>
+            <input type="text" name="searchQuery" id="searchQuery">
+        </div>
+        <div class="find-person-options-sort">
+            <label for="sort">Sort by:</label>
+            <select name="sortOption" id="sort">
+                <option value="name">Name</option>
+                <option value="age">Age</option>
+                <option value="registration-date">Registration date</option>
+            </select>
+        </div>
+        <div class="find-person-options-submit">
+            <button class="btn" onclick="searchPerson(event)">Search</button>
+            <button class="btn" onclick="resetSearch(event)">Reset</button>
+        </div>
+    </form>
+    <div id="find-person-body" class="find-person-body"></div>
+</div>
+
+<script src="lab.js"></script>
+</body>
+</html>
